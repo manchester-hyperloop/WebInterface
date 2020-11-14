@@ -24,13 +24,16 @@ DEPS = $(patsubst %.o,%.d,$(OBJ))
 BUILD_NAME = socket_server
 
 #compilation steps
-agent: $(OBJ)
+build: $(OBJ)
 	$(CC) -o $(BUILD_NAME) $(OBJ) $(LDFLAGS) $(CSRCFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(@D)
 	$(CC) $(CSRCFLAGS) -I$(SRC_DIR) -I$(HEADER_DIR) -c -MMD $< -o $@
 
+run: build
+	./$(BUILD_NAME)
+	
 clean:
 	rm -rf ./objects
 	rm -f $(BUILD_NAME)
