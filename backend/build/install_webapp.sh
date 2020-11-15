@@ -5,7 +5,7 @@ cd ../lib
 
 # install websocketpp
 git clone https://github.com/manchester-hyperloop/websocketpp
-cd websocketapp
+cd websocketpp
 cmake .
 sudo make install
 
