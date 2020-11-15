@@ -1,3 +1,5 @@
+echo "Installing..."
+
 # install header only websocketpp and boost libraries
 # works on Linux and Mac OS. For installing you need admin access
 mkdir ../lib
@@ -17,3 +19,7 @@ cd boost_1_74_0
 ./b2
 
 cd ../../build
+
+make
+
+echo "Done! run ./socket_server to start the web sockets server."
