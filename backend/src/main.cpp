@@ -5,9 +5,9 @@
 
 typedef websocketpp::server<websocketpp::config::asio> server;
 
+using websocketpp::lib::bind;
 using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
-using websocketpp::lib::bind;
 
 int state = 0;
 
@@ -18,7 +18,7 @@ typedef server::message_ptr message_ptr;
 void on_message(server *s, websocketpp::connection_hdl hdl, message_ptr msg)
 {
     std::cout << "on_message called with hdl: " << hdl.lock().get()
-    << " and message: " << msg->get_payload() << "\n";
+              << " and message: " << msg->get_payload() << "\n";
 
     // check for a special command to instruct the server to stop listening so
     // it can be cleanly exited.
@@ -35,13 +35,13 @@ void on_message(server *s, websocketpp::connection_hdl hdl, message_ptr msg)
     {
         s->send(hdl, std::to_string(state), msg->get_opcode());
     }
-    catch(websocketpp::exception const &e)
+    catch (websocketpp::exception const &e)
     {
-        std::cout << "Echo failed because : ( " << e.what() <<  " )\n";
+        std::cout << "Echo failed because : ( " << e.what() << " )\n";
     }
 }
 
-int main()
+int main(int argc, char **argv)
 {
     // create a server endpoint
     server echo_server;
@@ -56,7 +56,7 @@ int main()
         // initialize Asio
         echo_server.init_asio();
 
-        // register our message handler 
+        // register our message handler
         echo_server.set_message_handler(bind(&on_message, &echo_server, ::_1, ::_2));
 
         // listen on port 9002
@@ -68,14 +68,14 @@ int main()
         // start the ASIO io_service run loop
         echo_server.run();
     }
-    catch(websocketpp::exception const & e)
+    catch (websocketpp::exception const &e)
     {
         std::cerr << e.what() << '\n';
     }
-    catch(...)
+    catch (...)
     {
         std::cout << "other exception" << std::endl;
     }
-    
-}
 
+    return 0;
+}
