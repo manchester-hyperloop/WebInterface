@@ -1,12 +1,13 @@
 echo "Installing..."
 
 # install header only websocketpp and boost libraries
-# works on Linux and Mac OS. For installing you need admin access
+# works on Linux and Mac OS. Installation requires admin access
 mkdir ../lib
 cd ../lib
 
 # install websocketpp
-git clone https://github.com/manchester-hyperloop/websocketpp
+git submodule init
+git submodule update
 cd websocketpp
 cmake .
 sudo make install

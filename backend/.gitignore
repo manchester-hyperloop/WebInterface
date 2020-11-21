@@ -1,4 +1,4 @@
 build/objects
 build/socket_server
 
-lib
+lib/boost*

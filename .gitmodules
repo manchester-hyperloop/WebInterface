@@ -1,0 +1,3 @@
+[submodule "backend/lib/websocketpp"]
+	path = backend/lib/websocketpp
+	url = https://github.com/manchester-hyperloop/websocketpp.git
