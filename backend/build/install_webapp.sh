@@ -11,6 +11,7 @@ git submodule update
 cd websocketpp
 cmake .
 sudo make install
+cd ..
 
 #install boost
 wget https://dl.bintray.com/boostorg/release/1.74.0/source/boost_1_74_0.zip
