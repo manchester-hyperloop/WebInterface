@@ -1,29 +1,18 @@
-import './App.css';
-import AdminPage from "./Components/AdminPage"
-import Sidebar from "./Components/Sidebar"
-import {Container, Row, Col} from "react-bootstrap";
-import { useEffect, useState } from 'react';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import Layout from './Components/Layout';
+import AdminPage from './Pages/AdminPage';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("User Requests");
-
-  useEffect(() => {
-    console.log(currentPage);
-  }, [currentPage])
-
   return (
     <div className="App">
-      <Container fluid className="Container">
-                <Row>
-                    <Col xs={3} id="sidebar-wrapper">      
-                      <Sidebar setCurrentPage={setCurrentPage} />
-                    </Col>
-                    <Col  xs={9} id="page-content-wrapper">
-                    <AdminPage currentPage = {currentPage}/>
-                    </Col> 
-                </Row>
-
-      </Container>
+       <Router>
+        <Layout>
+          <Switch>
+            <Route exact path="/"/>
+            <Route path="/admin" component={AdminPage}/>
+          </Switch>
+        </Layout>
+      </Router>
     </div>
   );
 }
