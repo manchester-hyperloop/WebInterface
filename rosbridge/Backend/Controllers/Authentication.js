@@ -112,6 +112,7 @@ exports.checkIfUserValid = async (req, res, next) => {
     if(!token)
         return res.status(400).json({error: "Invalid request!"});
     
+    try{
     jwt.verify(token, process.env.JWT_SECRET, async function(err, decodedToken){
         if(err){
             return res.status(400).json({error: "Expired Link"});
@@ -119,8 +120,13 @@ exports.checkIfUserValid = async (req, res, next) => {
 
         const { id } = decodedToken;
         const userExists = await User.findOne({_id: id});
+        if(!userExists)
+            return res.status(400).json("Invalid user!");
         return res.status(200).json({success: "Valid token!", admin: userExists.permissions["admin"]});
     });
+    }catch(err){
+        return res.status(400).json({error: "Invalid User!"});
+    }
 }
 
 exports.getAllUsers = async (req, res, next) => {

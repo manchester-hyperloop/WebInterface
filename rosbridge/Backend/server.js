@@ -29,10 +29,10 @@ process.on("unhandledRejection", (err, promise) =>{
 })
 
 // Set up routes
-app.use('/', express.static(path.join(__dirname,'../frontend/build')));
+app.use('/', express.static(path.join(__dirname,'../Frontend/build')));
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'), (err) => {
+  res.sendFile(path.join(__dirname, '..', 'Frontend', 'build', 'index.html'), (err) => {
     if (err) {
       res.status(500).send(err);
     }
@@ -40,5 +40,5 @@ app.get('/*', (req, res) => {
 });
 
 
-app.use("/api/authentication" ,require('./routes/Authentication'));
-app.use("/api/requests" ,require('./routes/Requests'));
+app.use("/api/authentication" ,require('./Routes/Authentication'));
+app.use("/api/requests" ,require('./Routes/Requests'));
