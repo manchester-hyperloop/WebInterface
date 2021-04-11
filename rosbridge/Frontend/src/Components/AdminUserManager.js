@@ -2,6 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, makeStyles, Typography }
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useEffect, useState } from "react";
 import AdminModifyUser from './AdminModifyUser';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -14,27 +15,31 @@ const AdminUserManager = () => {
     const styles = useStyles();
     const [users, setUsers] = useState([]);
 
+    // Get all users from the database
+    const fetchUsers = async () => {
+        const config = {
+            header: {
+                "Content-type": "application/json",
+            }
+        }
+
+        try{
+            const {data} = await axios.post("/api/authentication/getusers",config);
+            setUsers(data.users);
+        }catch(error){
+            console.log(error);
+        }
+    }
+
     // Fetch the users here
     useEffect(() => {
-        setUsers([{
-            'username': "User 1",
-            'permissions': {'admin': false, 'read': true, 'write': false}
-        },{
-            'username': "User 2",
-            'permissions': {'admin': true, 'read': true, 'write': false}
-        },{
-            'username': "User 3",
-            'permissions': {'admin': false, 'read': true, 'write': true}
-        },{
-            'username': "User 4",
-            'permissions': {'admin': true, 'read': true, 'write': true}
-        },
-    ])
+        fetchUsers();
     }, []);
 
     return (
         <div>
              {
+                users.length > 0 ?
                 users.map((user, index) => (
                     <Accordion key={index}>
                         <AccordionSummary
@@ -47,6 +52,10 @@ const AdminUserManager = () => {
                         </AccordionDetails>
                     </Accordion>
                 ))
+                :
+                <Typography className={styles.noRequestsText} variant="h4" gutterBottom>
+                    There are no users
+                </Typography>
             }
         </div>
     )
