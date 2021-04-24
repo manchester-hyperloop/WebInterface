@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { validateRequest, rejectRequest, getRegisterRequests } = require("../controllers/Requests");
+const { validateRequest, rejectRequest, getRegisterRequests } = require("../Controllers/Requests");
 
 router.route("/validaterequest").post(validateRequest);
 

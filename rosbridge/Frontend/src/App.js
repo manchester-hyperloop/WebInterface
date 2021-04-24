@@ -5,6 +5,7 @@ import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
 import PrivateRoute from './Routes/PrivateRoute';
 import AdminRoute from './Routes/AdminRoute';
+import TestPage from './Pages/TestPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route exact path="/"/>
             <Route exact path="/login" component={LoginPage}/>
             <Route exact path="/register" component={RegisterPage}/>
+            <Route exact path="/test" component={TestPage}/>
             <AdminRoute path="/admin" component={AdminPage}/>
           </Switch>
         </Layout>
